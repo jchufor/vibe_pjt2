@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
   LineChart,
   Line,
@@ -53,13 +53,7 @@ export default function FinancialCharts({
     { code: '11014', name: '3분기보고서' },
   ];
 
-  useEffect(() => {
-    if (corpCode) {
-      loadData();
-    }
-  }, [corpCode, bsnsYear, reprtCode]);
-
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     setLoading(true);
     try {
       const financialData = await fetchFinancialData(corpCode, bsnsYear.toString(), reprtCode);
@@ -72,7 +66,13 @@ export default function FinancialCharts({
     } finally {
       setLoading(false);
     }
-  };
+  }, [corpCode, bsnsYear, reprtCode, onDataLoad, onError, setLoading]);
+
+  useEffect(() => {
+    if (corpCode) {
+      loadData();
+    }
+  }, [corpCode, loadData]);
 
   // 재무상태표 데이터 추출
   const balanceSheetData = data.filter(

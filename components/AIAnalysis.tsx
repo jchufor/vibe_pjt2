@@ -75,7 +75,7 @@ export default function AIAnalysis({ financialData }: AIAnalysisProps) {
 
       {!analysis && !loading && !error && (
         <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center text-gray-600">
-          위의 "AI 분석 시작" 버튼을 클릭하여 재무 데이터에 대한 AI 분석을 받아보세요.
+          위의 &quot;AI 분석 시작&quot; 버튼을 클릭하여 재무 데이터에 대한 AI 분석을 받아보세요.
         </div>
       )}
     </div>
